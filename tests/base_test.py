@@ -92,7 +92,7 @@ def test_query(ea):
     ea.run_query(ea.rules[0], START, END)
     ea.current_es.search.assert_called_with(body={
         'query': {'filtered': {'filter': {'bool': {'must': [{'range': {'@timestamp': {'lte': END_TIMESTAMP, 'gt': START_TIMESTAMP}}}]}}}},
-        'sort': [{'@timestamp': {'order': 'asc'}}]}, index='idx', _source_include=['@timestamp'], ignore_unavailable=True,
+        'sort': [{'@timestamp': {'order': 'asc'}}]}, index='idx', _source_includes=['@timestamp'], ignore_unavailable=True,
         size=ea.rules[0]['max_query_size'], scroll=ea.conf['scroll_keepalive'])
 
 
@@ -115,7 +115,7 @@ def test_query_with_unix(ea):
     end_unix = dt_to_unix(END)
     ea.current_es.search.assert_called_with(
         body={'query': {'filtered': {'filter': {'bool': {'must': [{'range': {'@timestamp': {'lte': end_unix, 'gt': start_unix}}}]}}}},
-              'sort': [{'@timestamp': {'order': 'asc'}}]}, index='idx', _source_include=['@timestamp'], ignore_unavailable=True,
+              'sort': [{'@timestamp': {'order': 'asc'}}]}, index='idx', _source_includes=['@timestamp'], ignore_unavailable=True,
         size=ea.rules[0]['max_query_size'], scroll=ea.conf['scroll_keepalive'])
 
 
@@ -128,7 +128,7 @@ def test_query_with_unixms(ea):
     end_unix = dt_to_unixms(END)
     ea.current_es.search.assert_called_with(
         body={'query': {'filtered': {'filter': {'bool': {'must': [{'range': {'@timestamp': {'lte': end_unix, 'gt': start_unix}}}]}}}},
-              'sort': [{'@timestamp': {'order': 'asc'}}]}, index='idx', _source_include=['@timestamp'], ignore_unavailable=True,
+              'sort': [{'@timestamp': {'order': 'asc'}}]}, index='idx', _source_includes=['@timestamp'], ignore_unavailable=True,
         size=ea.rules[0]['max_query_size'], scroll=ea.conf['scroll_keepalive'])
 
 

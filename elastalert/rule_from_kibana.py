@@ -18,7 +18,7 @@ def main():
     send_get_body_as = raw_input("Method for querying Elasticsearch[GET]: ") or 'GET'
     es = Elasticsearch(host=es_host, port=es_port, send_get_body_as=send_get_body_as)
     query = {'query': {'term': {'_id': db_name}}}
-    res = es.search(index='kibana-int', doc_type='dashboard', body=query, _source_include=['dashboard'])
+    res = es.search(index='kibana-int', doc_type='dashboard', body=query, _source_includes=['dashboard'])
     if not res['hits']['hits']:
         print("No dashboard %s found" % (db_name))
         exit()
